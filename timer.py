@@ -23,7 +23,7 @@ class Timer():
 	def __init__(self, name=None, silent=False):
 		self.silent = silent
 		if name!=None:
-			if not silent:
+			if not self.silent:
 				print("Start %s" % (name))
 			name=name+" "
 		else:
@@ -36,7 +36,7 @@ class Timer():
 
 	def __exit__(self, type, value, traceback):
 		end = time.time()
-		if not silent:
+		if not self.silent:
 			print("%sTook %s seconds\n" %(self.name, end-self.start))
 
 	def reset(self):
