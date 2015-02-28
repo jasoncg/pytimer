@@ -20,13 +20,24 @@ import time
 #	perform_expensive_calculation_2()
 #
 class Timer():
+	def __init__(self, name=None, silent=False):
+		self.silent = silent
+		if name!=None:
+			if not silent:
+				print("Start %s" % (name))
+			name=name+" "
+		else:
+			name=""
+		self.name=name
+		
 	def __enter__(self):
 		self.reset()
 		return self
 
 	def __exit__(self, type, value, traceback):
 		end = time.time()
-		print("Took %s seconds\n" %(end-self.start))
+		if not silent:
+			print("%sTook %s seconds\n" %(self.name, end-self.start))
 
 	def reset(self):
 		# Reset the start to now
@@ -43,7 +54,7 @@ class Timer():
 			message=""
 		else:
 			message=message+" "
-		print("%s%s seconds\n" %(message, self.get_progress()))
+		print("%s%s%s seconds\n" %(self.name, message, self.get_progress()))
 
 	def get_elapsed(self):
 		# Get the current time elapsed since start
@@ -57,4 +68,4 @@ class Timer():
 			message=""
 		else:
 			message=message+" "
-		print("%s%s seconds\n" %(message, self.get_elapsed()))
+		print("%s%s%s seconds\n" %(self.name, message, self.get_elapsed()))
