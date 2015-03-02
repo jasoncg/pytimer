@@ -8,28 +8,29 @@
 #
 import time
 
-#
-# Use in a "with" statement:
-# with timer.Timer():
-# 	perform_expensive_calculation()
-# 
-# May also print the current progress:
-# with timer.Timer() as t:
-# 	perform_expensive_calculation_1()
-#	t.print_progress()
-#	perform_expensive_calculation_2()
-#
+
 class Timer():
+	"""
+	Use in a "with" statement:
+	with timer.Timer():
+		perform_expensive_calculation()
+
+	May also print the current progress:
+	with timer.Timer() as t:
+		perform_expensive_calculation_1()
+		t.print_progress()
+		perform_expensive_calculation_2()
+	"""
 	def __init__(self, name=None, silent=False):
 		self.silent = silent
-		if name!=None:
+		if name is not None:
 			if not self.silent:
 				print("Start %s" % (name))
-			name=name+" "
+			name = name+" "
 		else:
-			name=""
-		self.name=name
-		
+			name = ""
+		self.name = name
+
 	def __enter__(self):
 		self.reset()
 		return self
@@ -37,7 +38,7 @@ class Timer():
 	def __exit__(self, type, value, traceback):
 		end = time.time()
 		if not self.silent:
-			print("%sTook %s seconds\n" %(self.name, end-self.start))
+			print("%sTook %s seconds\n" % (self.name, end-self.start))
 
 	def reset(self):
 		# Reset the start to now
@@ -48,13 +49,12 @@ class Timer():
 		# Get the current time elapsed since start
 		return time.time() - self.start
 
-
 	def print_progress(self, message=None):
 		if message is None:
-			message=""
+			message = ""
 		else:
-			message=message+" "
-		print("%s%s%s seconds\n" %(self.name, message, self.get_progress()))
+			message = message+" "
+		print("%s%s%s seconds\n" % (self.name, message, self.get_progress()))
 
 	def get_elapsed(self):
 		# Get the current time elapsed since start
@@ -63,9 +63,10 @@ class Timer():
 		self.elapsed = newelapsed
 
 		return e
+
 	def print_elapsed(self, message=None):
 		if message is None:
-			message=""
+			message = ""
 		else:
-			message=message+" "
-		print("%s%s%s seconds\n" %(self.name, message, self.get_elapsed()))
+			message = message+" "
+		print("%s%s%s seconds\n" % (self.name, message, self.get_elapsed()))
